@@ -1,14 +1,15 @@
 from flask import Flask
-
+from .extensions import init_mongo
 from app.webhook.routes import webhook
+from app.webhook.views import views
 
-
-# Creating our flask app
 def create_app():
 
     app = Flask(__name__)
-    
-    # registering all the blueprints
+
+    init_mongo(app)
+
     app.register_blueprint(webhook)
-    
+    app.register_blueprint(views)
+
     return app
